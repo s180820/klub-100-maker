@@ -40,7 +40,7 @@ Denne .csv fil indeholder information om sangene i en klub 100. Hver række svar
 # Forarbejde
 For at kunne lave en klub 100, skal der udfyldes et sheet med hvilke sange man ønsker, samt evt hvilke shoutouts man vil have.
 
-Opbygningen af klub 100 foregår vha. 2 sheets, "Sange" og "Shoutouts". Templaten "sheet_template" kan anvendes.
+Opbygningen af klub 100 foregår vha. sheet_templaten.
 
 Det er vigtigt at kolonner har de samme navne, som angivet nedenunder.
 
@@ -53,7 +53,7 @@ I feltet “link” angives et link til den ønskede sang, her skal angives et l
 
 I feltet “starttidspunkt (i sek)” angives det antal sekunder inde i klippet at sangen skal startes, der vil herfra blive klippet 60 sekunder ud, som anvendes i Børne Klub 100.
 
-Ønsker man at en sang skal have et bestemt shoutout inden sangen afspilles, skrives shoutsoutets titel i feltet “Shoutout”. Titlen skal matche navnet på lydfilen. Hvis der shoutout sheetet bruges til at downlaode shoutouts, vil dette svarer til titlen i shoutout sheetet
+Ønsker man at en sang skal have et bestemt shoutout inden sangen afspilles, skrives shoutsoutets titel i feltet “Shoutout”. Det er nemmest at kalde dine shoutouts tallene 1-100 i den rækkefølge de skal afspilles.
 
 Det er muligt selv at tilføje flere kolonner med ting, som fx en kommentar. Disse vil blive ignoreret i bygningen af klub 100.
 
@@ -68,25 +68,6 @@ I felterne “start tid (sek)” og “slut tid (sek)” angives start og slutti
 
 I feltet “downloadet” angives med et “x” om det er et citat der skal downloades, da det ikke er fra et understøttet site (https://github.com/ytdl-org/youtube-dl/blob/master/docs/supportedsites.md).
 
-## Stats
-I arket “Stats” findes forskellige optællinger og lignede over eksempelvis, hvor mange shoutouts der er fundet indtil videre.
-
-## Ideer
-I arket “Ideer” kan indsættes ideer, som ikke indeholder diverse detaljer, som eksempelvis start tidspunkt.
-
-I feltet “Type” angives om det er en ide til en sang eller et shoutout.
-
-I feltet “Idé” angives med fritekst hvad ideen er.
-
-
-
-<!-- # Byg mig en klub 100, tak
-
-* Placér klub.csv i samme mappe som scriptsne
-* Kør dl.py for at downloade alle sange til ./tracks/
-* Kør prepare_all_tracks.py for at trimme, fade, og loudness normalisere alle sange. Resultatet placeres i ./prepared_tracks/
-* Kør prepare_all_shoutouts.py for at loudness normalisere alle skud ud, som ryger i ./prepared_shoutouts
-* Kør combine.py for at kombinere sange og skud ud til en endelig klub.mp3. -->
 
 # Kræver:
  * `python3`
@@ -94,6 +75,21 @@ I feltet “Idé” angives med fritekst hvad ideen er.
  * `ffmpeg` - for at køre prepare_track.py, prepare_shoutout.py og combine.py
 
 
-# TO-DO
+# Hvordan kører jeg det her?
 
-- [ ] Giv shoutout navn efter placering i song csv
+For at kører scriptet skal du ligge inde i denne mappe og køre følgende kommandoer:
+
+```bash
+make install
+python3 make_klub.py -c *mappe_lokation* -d *navn_på_csvfilen* -s *shoutout_type*
+```
+
+du kan specifere forskellige ting med følgende argumenter:
+
+```bash
+'-c', '--club_folder', default='Examples/Bums100', Det er lokationen af klub.csv og shoutouts
+'-d', '--club_file', default='Nums100.xlsx', Det er navnet på klub.csv
+'-o', '--output_name', default="Love100", Det er navnet på den output fil der bliver lavet
+'-f', '--file_format', default="mp3", Det er filformatet på den output fil der bliver lavet
+'-s', '--shoutout_type', default="none", Typen af shoutsouts der skal bruges. Kan være "none", "own" eller "links"
+```
