@@ -98,3 +98,8 @@ du kan specifere forskellige ting med følgende argumenter:
 '-f', '--file_format', default="mp3", Det er filformatet på den output fil der bliver lavet
 '-s', '--shoutout_type', default="none", Typen af shoutsouts der skal bruges. Kan være "none", "own" eller "links"
 ```
+
+# Cookies og youtube-dl
+Hvis du får fejl ved at downloade fra youtube, kan det være fordi du mangler en cookie. Dette kan løses ved at downloade en extenstion som kan få dine cookies lokalt, det kan f.eks. være ved hjælp af [Get cookies.txt LOCALLY](https://chrome.google.com/webstore/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc) (for Chrome) eller [cookies.txt](https://addons.mozilla.org/en-GB/firefox/addon/cookies-txt/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search) (for Firefox).
+
+Når du så har downloadet dine cookies fra youtube skal du erstatte den nuværende cookies.txt fil med den du har downloadet. 
