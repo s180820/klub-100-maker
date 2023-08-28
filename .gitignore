@@ -1,4 +1,5 @@
-.wav
+.venv
 **/*.m4a
 **/*.wav
 **/*.mp3
+cookies.txt

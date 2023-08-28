@@ -1,5 +1,6 @@
 numpy
-"git+https://github.com/ytdl-org/youtube-dl.git"
+#git+https://github.com/ytdl-org/youtube-dl.git
+youtube-dl
 ffmpeg
 pandas
 openpyxl

@@ -23,6 +23,7 @@ def download(name, link, outfile):
     print('Downloading', name, 'from', link + '...')
     process = subprocess.Popen(['youtube-dl',
                                 '--extract-audio',
+                                '--cookies', './cookies.txt',
                                 '--no-check-certificate',
                                 '--audio-format', 'wav',
                                 '-o', outfile, link],
@@ -34,9 +35,9 @@ def download(name, link, outfile):
     if err != b'':
         import sys
         print('Error downloading', name, 'from', link, file=sys.stderr)
-        print(err.decode('utf-8'), file=sys.stderr)
+        #print(err.decode('utf-8'), file=sys.stderr)
 
-def download_all(dl_path = "tracks", csv_name = "Songs.csv"):#, sound_type = "tracks"):
+def download_all(dl_path = "tracks", csv_name = "Songs.csv", subset=[]):#, sound_type = "tracks"):
     """
     Downloades all links from the csv
     ------------------------------------
@@ -48,15 +49,17 @@ def download_all(dl_path = "tracks", csv_name = "Songs.csv"):#, sound_type = "tr
     tracks_path = dl_path
     name_index = 0
     link_index = 1
-    
-    if os.path.exists(tracks_path):
-        shutil.rmtree(tracks_path)
-    
-    os.mkdir(tracks_path)
+
+    if subset == []:
+        if os.path.exists(tracks_path):
+            shutil.rmtree(tracks_path)
+            os.mkdir(tracks_path)
     
     with multiprocessing.Pool() as p:
         with open(csv_name, 'rt') as csvfile:
             reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+            if len(subset) > 0:
+                reader = [row for i, row in enumerate(reader, 1) if i in subset]
             
             for i, row in enumerate(reader, 1):
                 name = row[name_index]

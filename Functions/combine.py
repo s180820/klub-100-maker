@@ -43,8 +43,6 @@ def combine(songs_csv = "klub.csv", prep_shoutout_path = "prepared_shoutouts", p
     tracks = prep_tracks_path #os.path.join(os.path.curdir, 'prepared_tracks') if prep_tracks_path is None else prep_tracks_path
     output = output_name + "."+ file_format #os.path.join(os.path.curdir, output_name + "." + fileformat)
     inputs = []
-
-    
         
     with open(songs_csv, 'rt') as csvfile:
         reader = csv.reader(csvfile, delimiter=',', quotechar='"')

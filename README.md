@@ -57,7 +57,7 @@ I feltet “starttidspunkt (i sek)” angives det antal sekunder inde i klippet 
 
 Det er muligt selv at tilføje flere kolonner med ting, som fx en kommentar. Disse vil blive ignoreret i bygningen af klub 100.
 
-## Shoutouts
+## Shoutouts (kun nødvendigt ved "links" som shoutout_type)
 Arket “Shoutouts” indeholder de citater, som placeres mellem sangene.
 
 I feltet “Shoutout titel” gives en titel som indikere hvad der siges/er essencen af shoutoutet. Dette vil blive shoutoutets reference og lydoptagelsen skal have dette navn for at blive matchet med den rette sang. Denne kolonne er den eneste nødvendige, hvis man selv indspiller shoutouts.
@@ -72,16 +72,21 @@ I feltet “downloadet” angives med et “x” om det er et citat der skal dow
 # Kræver:
  * `python3`
  * `youtube-dl` - for at køre dl.py
- * `ffmpeg` - for at køre prepare_track.py, prepare_shoutout.py og combine.py
+ * `ffmpeg` - for at køre prepare_track.py, prepare_shoutout.py og combine.py, skal muligvis installeres fra https://ffmpeg.org/download.html
 
 
 # Hvordan kører jeg det her?
 
-For at kører scriptet skal du ligge inde i denne mappe og køre følgende kommandoer:
+For at kører scriptet skal du ligge inde i denne mappe og have kørt disse følgende kommandoer:
 
 ```bash
-make install
-python3 make_klub.py -c *mappe_lokation* -d *navn_på_csvfilen* -s *shoutout_type*
+make venv #skaber et nyt virtuelt envionrment kaldet .venv
+source .venv/bin/activate #aktiverer det virtuelle environment
+make install #installerer alle dependencies
+```
+Nu skal du bare kører scriptet med følgende kommando for at lave en klub 100:
+```bash
+python3 make_klub.py -c mappe_lokation -d navn_på_csvfilen.csv -s shoutout_type
 ```
 
 du kan specifere forskellige ting med følgende argumenter:
