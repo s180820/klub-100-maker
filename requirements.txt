@@ -4,3 +4,4 @@ youtube-dl
 ffmpeg
 pandas
 openpyxl
+yt_dlp

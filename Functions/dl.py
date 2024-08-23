@@ -35,7 +35,7 @@ def download(name, link, outfile):
     if err != b'':
         import sys
         print('Error downloading', name, 'from', link, file=sys.stderr)
-        #print(err.decode('utf-8'), file=sys.stderr)
+        print(err.decode('utf-8'), file=sys.stderr)
 
 def download_all(dl_path = "tracks", csv_name = "Songs.csv", subset=[]):#, sound_type = "tracks"):
     """

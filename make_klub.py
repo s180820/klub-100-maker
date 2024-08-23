@@ -16,6 +16,8 @@ def check_progress(path, check_desc):
         elif inp.lower() != "y":
             print("Please chose either y or n")
             check_progress(path, check_desc)
+    else:
+        Path(path).mkdir(parents=True)
     return r
 
 
@@ -45,6 +47,9 @@ def make_club(club_folder, club_file, n_songs = 100, output_name = "klub", shout
     prep_song_folder = club_folder + "/prepared_songs"
     prep_shoutout_folder = club_folder + "/prepared_shoutouts"
 
+
+
+
     if files_to_keep is None:
         files_to_keep = []
 
@@ -69,6 +74,7 @@ def make_club(club_folder, club_file, n_songs = 100, output_name = "klub", shout
     print("Checking that everything is in order...")
     if dl_songs or dl_so:
         from Functions.dl import download_all
+        from Functions.dl_new import download_all_songs
     if dl_songs:
         from Functions.prepare_csv import create_song_csv, mix_song_pos
     if dl_so:
@@ -95,30 +101,31 @@ def make_club(club_folder, club_file, n_songs = 100, output_name = "klub", shout
 
         ## Download songs
         #mix_song_pos(song_csv = song_csv, diff_song_length = diff_song_length)
-        download_all(dl_path=song_folder, csv_name=song_csv)
+        #download_all(dl_path=song_folder, csv_name=song_csv)
+        download_all_songs(csv_name = club_folder+"/"+club_file, output_format = "wav", output_folder = song_folder)
 
         # check if the songs are downloaded correctly
-        if len([name for name in os.listdir(song_folder) if os.path.isfile(name)]) != 100:
-            print("some songs were not downloaded correctly, trying to download again")
-            missing = True
-        times = 0
-        while missing:
-            #wait 5 seconds
-            print("waiting 5 seconds to try again")
-            time.sleep(5)
-            #find songs that were not downloaded, all files are named 1.wav, 2.wav etc.
-            downloaded_songs = [int(os.path.splitext(f)[0].split('.')[0]) for f in os.listdir(song_folder) if os.path.isfile(os.path.join(song_folder, f))]
-            missing_songs = [i for i in range(1, n_songs+1) if i not in downloaded_songs]
-            #download the missing songs
-            download_all(dl_path=song_folder, csv_name=song_csv, subset=missing_songs)
-            #check if all songs are downloaded
-            times += 1
-            if len([name for name in os.listdir(song_folder) if os.path.isfile(name)]) == 100:
-                missing = False
-            elif times == 2:
-                raise AssertionError("Some songs were not downloaded correctly, please try again")
-            else:
-                print("some songs were not downloaded correctly, trying to download again")
+        # if len([name for name in os.listdir(song_folder) if os.path.isfile(name)]) != 100:
+        #     print("some songs were not downloaded correctly, trying to download again")
+        #     missing = True
+        # times = 0
+        # while missing:
+        #     #wait 5 seconds
+        #     print("waiting 5 seconds to try again")
+        #     time.sleep(5)
+        #     #find songs that were not downloaded, all files are named 1.wav, 2.wav etc.
+        #     downloaded_songs = [int(os.path.splitext(f)[0].split('.')[0]) for f in os.listdir(song_folder) if os.path.isfile(os.path.join(song_folder, f))]
+        #     missing_songs = [i for i in range(1, n_songs+1) if i not in downloaded_songs]
+        #     #download the missing songs
+        #     download_all(dl_path=song_folder, csv_name=song_csv, subset=missing_songs)
+        #     #check if all songs are downloaded
+        #     times += 1
+        #     if len([name for name in os.listdir(song_folder) if os.path.isfile(name)]) == 100:
+        #         missing = False
+        #     elif times == 10:
+        #         raise AssertionError("Some songs were not downloaded correctly, please try again")
+        #     else:
+        #         print("some songs were not downloaded correctly, trying to download again")
 
             
     if (shoutout_type == "link") & (type(club_file) != list) & dl_so:

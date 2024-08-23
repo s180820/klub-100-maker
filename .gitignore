@@ -1,5 +1,22 @@
-.venv
 **/*.m4a
 **/*.wav
 **/*.mp3
 cookies.txt
+
+# usefull ignores
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+
+# ds store
+.DS_Store
+
+# virtualenv
+venv/
+.venv
+
+# IDE
+.idea/
+.vscode/
+
